@@ -1,0 +1,23 @@
+.STRING 40 "258"
+LDA 40;
+STA 10;
+MAX;
+LOOP:
+CLR;
+LDA_X;
+#Subroutine call
+JSR PRINT_NUM;
+INC_X;
+SUB_A;
+BRn LOOP;
+END;
+
+PRINT_NUM:
+LDA_MEM 10;
+MAX;
+LDA_X;
+OUT;
+INC_X;
+MXA;
+STA 10;
+RET;

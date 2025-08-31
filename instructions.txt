@@ -1,0 +1,110 @@
+Instruction Set:
+
+Store Instructions: 
+    STA     = store value from the A register into address passed into function 
+            -> ex. STA 123;
+    STA_X   = store value from the A register into address pointed to by the X register
+            -> ex. STA_X;
+    STA_Y   = store value from the A register into address pointed to by the Y register
+            -> ex. STA_Y;
+
+Load Instructions:
+    LDA     = load value into the A register that passed into function
+            -> ex. LDA 123;
+    LDA_MEM = load value into the A register from memory address passed into function
+            -> ex. LDA_MEM 123;
+    LDA_X   = load value into the A register from memory address pointed to by the X register
+            -> ex. LDA_X;
+    LDA_Y   = load value into the A register from memory address pointed to by the Y register
+            -> ex. LDA_Y;
+
+Move Instructions:
+    MAX     = move the value from the A register to the X register
+            -> ex. MAX;
+    MAY     = move the value from the A register to the Y register
+            -> ex. MAY;
+    MXA     = move the value from the X register to the A register
+            -> ex. MXA;
+    MXY     = move the value from the X register to the Y register
+            -> ex. MXY;
+    MYA     = move the value from the Y register to the A register
+            -> ex. MYA;
+    MYX     = move the value from the Y register to the X register
+            -> ex. MYX;
+    MCA     = move the value from the ACC register to the A register
+            -> ex. MCA;
+    MCX     = move the value from the ACC register to the X register
+            -> ex. MCX;
+    MCY     = move the value from the ACC register to the Y register
+            -> ex. MCY;
+
+I/O Instructions:
+    IN      = get input string from user, captures string on <ENTER> and places into memory at address passed into function
+            -> ex. IN 123;
+    OUT     = output character from the A register to the screen
+            -> ex. OUT;
+
+Increment Instructions:
+    INC_A   = increment the value in the A register by 1
+            -> ex. INC_A;
+    INC_X   = increment the value in the X register by 1
+            -> ex. INC_X;
+    INC_Y   = increment the value in the Y register by 1
+            -> ex. INC_Y;
+
+Jump and Branch Instructions:
+    JMP     = moves the Program Counter to the LABEL elsewhere in the program
+            -> ex. JMP LABEL;
+    BRnzp   = same as jump
+            -> ex. BRnzp LABEL;
+    BRn     = moves the Program Counter to the LABEL elsewhere in the program, when only the negative flag is set
+            -> ex. BRn LABEL; 
+    BRnz    = moves the Program Counter to the LABEL elsewhere in the program, when only the negative flag or zero flag are set
+            -> ex. BRnz LABEL;
+    BRnp    = moves the Program Counter to the LABEL elsewhere in the program, when only the negative flag or positive flag are set
+            -> ex. BRnp LABEL;
+    BRz     = moves the Program Counter to the LABEL elsewhere in the program, when only the zero flag is set 
+            -> ex. BRz LABEL;
+    BRzp    = moves the Program Counter to the LABEL elsewhere in the program, when only the positive flag or zero flag are set
+            -> ex. BRzp LABEL;
+    BRp     = moves the Program Counter to the LABEL elsewhere in the program, when only the positive flag is set 
+            -> ex. BRp LABEL;
+
+ALU Instructions:
+    ADD     = add value passed into the function to the ACC register
+            -> ex. ADD 123;
+    ADD_A   = add value in the A register to the ACC register
+            -> ex. ADD_A;
+    ADD_X   = add value in the X register to the ACC register
+            -> ex. ADD_X;
+    ADD_Y   = add value in the Y register to the ACC register
+            -> ex. ADD_Y;
+    SUB     = subtract value passed into the function from the ACC register
+            -> ex. SUB 123;
+    SUB_A   = subtract value in the A register from the ACC register 
+            -> ex. SUB_A;
+    SUB_X   = subtract value in the A register from the ACC register 
+            -> ex. SUB_X;
+    SUB_Y   = subtract value in the A register from the ACC register 
+            -> ex. SUB_Y;
+    INV     = bitwise invert the value in the ACC regiser 
+            -> ex. INV;
+    CLR     = clear ACC register (set value to 0x00)
+            -> ex. CLR;
+
+Subroutine Instructions:
+    JSR     = moves the Program Counter to the LABEL elsewhere in the program and pushes register contents to the stack, registers will be set to default values at start of subroutine, stack pointer will start at address 0xC0
+            -> ex. JSR LABEL;
+    RET     = returns from subroutine, restores registers from the stack and moves Program Counter to next instruction after JSR call
+            -> ex. RET;
+
+End of Program Instruction:
+    END     = Signifies the end of the program, when the Program Counter reaches this instruction execution will end, if no END is included in the program, execution will end when the PC reaches the end of the used instruction memory
+            -> ex. END;
+
+Compiler Directives:
+    .STRING = loads a string into data memory before start of execution at address passed into function
+            -> ex. .STRING 123 "Hello, World!"
+    .VALUE  = loads a specific value into data memory before start of execution at address passed into function
+            -> ex. .VALUE 123 "123"
+

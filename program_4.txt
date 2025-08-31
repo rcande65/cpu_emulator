@@ -1,0 +1,597 @@
+.STRING 0 "Hello, World!"
+.STRING 30 "Enter First Number: "
+.STRING 60 "Enter Second Number: "
+.STRING 90 " + "
+.STRING 120 " = "
+.VALUE 240 "123"
+
+#start of program
+#print hello world
+LDA 0;
+STA 150;
+JSR PRINT_STRING;
+LDA 10;
+OUT;
+#print first number message
+LDA 30;
+STA 150;
+JSR PRINT_STRING;
+#get number 1 and store it at address 200
+IN 200;
+#print first number message
+LDA 60;
+STA 150;
+JSR PRINT_STRING;
+#get number 2 and store it at address 210
+IN 210;
+
+
+#Number 1:
+#   Inputted value starts at address 200
+#   Decimal value of digit at 222
+#   Total value at 223
+NUMER_ONE:
+#count number of digits in number 1
+LDA 200;
+STA 220;
+JSR COUNT_DIGS;
+#based on the number of digits, add them together to be 1 number
+LDA_MEM 221;
+CLR;
+ADD 3;
+SUB_A;
+BRz THREE_DIGITS;
+SUB 1;
+BRz TWO_DIGITS;
+JMP ONE_DIGIT;
+
+#3 digits
+THREE_DIGITS:
+CLR;
+
+# convert 100s place to decimal and store at address 222
+HUNDREDS_PLACE_NUM_ONE_THREE:
+LDA_MEM 200;
+ADD_A;
+SUB 48;
+MCA;
+STA 222;
+#check if hundreds place is 0
+CLR;
+LDA_MEM 222;
+ADD_A;
+BRz TENS_PLACE_NUM_ONE_THREE;
+#Not 0, add hundreds and store at address 223
+COUNT_HUNDREDS_THREE:
+CLR;
+LDA_MEM 223;
+ADD_A;
+ADD 100;
+MCA;
+STA 223;
+#decrement hundreds palce decimal value and branch if done
+CLR;
+LDA_MEM 222;
+ADD_A;
+SUB 1;
+MCA;
+STA 222;
+BRp COUNT_HUNDREDS_THREE;
+
+# convert 10s place to decimal and store at address 222
+TENS_PLACE_NUM_ONE_THREE:
+LDA_MEM 201;
+ADD_A;
+SUB 48;
+MCA;
+STA 222;
+#check if hundreds place is 0
+CLR;
+LDA_MEM 222;
+ADD_A;
+BRz ONES_PLACE_NUM_ONE_THREE;
+#Not 0, add hundreds and store at address 223
+COUNT_TENS_THREE:
+CLR;
+LDA_MEM 223;
+ADD_A;
+ADD 10;
+MCA;
+STA 223;
+#decrement hundreds palce decimal value and branch if done
+CLR;
+LDA_MEM 222;
+ADD_A;
+SUB 1;
+MCA;
+STA 222;
+BRp COUNT_TENS_THREE;
+
+# convert 1s place to decimal and store at address 222
+ONES_PLACE_NUM_ONE_THREE:
+LDA_MEM 202;
+ADD_A;
+SUB 48;
+MCA;
+STA 222;
+#check if hundreds place is 0
+CLR;
+LDA_MEM 222;
+ADD_A;
+BRz NUMBER_TWO;
+#Not 0, add hundreds and store at address 223
+COUNT_ONES_THREE:
+CLR;
+LDA_MEM 223;
+ADD_A;
+ADD 1;
+MCA;
+STA 223;
+#decrement hundreds palce decimal value and branch if done
+CLR;
+LDA_MEM 222;
+ADD_A;
+SUB 1;
+MCA;
+STA 222;
+BRp COUNT_ONES_THREE;
+JMP NUMBER_TWO;
+
+#2 digits
+TWO_DIGITS:
+CLR;
+
+# convert 10s place to decimal and store at address 222
+TENS_PLACE_NUM_ONE_TWO:
+LDA_MEM 200;
+ADD_A;
+SUB 48;
+MCA;
+STA 222;
+#check if hundreds place is 0
+CLR;
+LDA_MEM 222;
+ADD_A;
+BRz ONES_PLACE_NUM_ONE_TWO;
+#Not 0, add hundreds and store at address 223
+COUNT_TENS_TWO:
+CLR;
+LDA_MEM 223;
+ADD_A;
+ADD 10;
+MCA;
+STA 223;
+#decrement hundreds palce decimal value and branch if done
+CLR;
+LDA_MEM 222;
+ADD_A;
+SUB 1;
+MCA;
+STA 222;
+BRp COUNT_TENS_TWO;
+
+# convert 1s place to decimal and store at address 222
+ONES_PLACE_NUM_ONE_TWO:
+LDA_MEM 201;
+ADD_A;
+SUB 48;
+MCA;
+STA 222;
+#check if hundreds place is 0
+CLR;
+LDA_MEM 222;
+ADD_A;
+BRz NUMBER_TWO;
+#Not 0, add hundreds and store at address 223
+COUNT_ONES_TWO:
+CLR;
+LDA_MEM 223;
+ADD_A;
+ADD 1;
+MCA;
+STA 223;
+#decrement hundreds palce decimal value and branch if done
+CLR;
+LDA_MEM 222;
+ADD_A;
+SUB 1;
+MCA;
+STA 222;
+BRp COUNT_ONES_TWO;
+JMP NUMBER_TWO;
+
+#1 digit
+ONE_DIGIT:
+CLR;
+
+# convert 1s place to decimal and store at address 222
+ONES_PLACE_NUM_ONE_ONE:
+LDA_MEM 200;
+ADD_A;
+SUB 48;
+MCA;
+STA 222;
+#check if hundreds place is 0
+CLR;
+LDA_MEM 222;
+ADD_A;
+BRz NUMBER_TWO;
+#Not 0, add hundreds and store at address 223
+COUNT_ONES_ONE:
+CLR;
+LDA_MEM 223;
+ADD_A;
+ADD 1;
+MCA;
+STA 223;
+#decrement hundreds palce decimal value and branch if done
+CLR;
+LDA_MEM 222;
+ADD_A;
+SUB 1;
+MCA;
+STA 222;
+BRp COUNT_ONES_ONE;
+
+#repeat for number 2
+#Number 2:
+#   Inputted value starts at address 210
+#   Decimal value of digit at 222
+#   Total value at 224
+NUMBER_TWO:
+#count number of digits in number 1
+LDA 210;
+STA 220;
+JSR COUNT_DIGS;
+#based on the number of digits, add them together to be 1 number
+LDA_MEM 221;
+CLR;
+ADD 3;
+SUB_A;
+BRz THREE_DIGITS_TWO;
+SUB 1;
+BRz TWO_DIGITS_TWO;
+JMP ONE_DIGIT_TWO;
+
+#3 digits
+THREE_DIGITS_TWO:
+CLR;
+
+# convert 100s place to decimal and store at address 222
+HUNDREDS_PLACE_NUM_ONE_THREE_TWO:
+LDA_MEM 210;
+ADD_A;
+SUB 48;
+MCA;
+STA 222;
+#check if hundreds place is 0
+CLR;
+LDA_MEM 222;
+ADD_A;
+BRz TENS_PLACE_NUM_ONE_THREE_TWO;
+#Not 0, add hundreds and store at address 223
+COUNT_HUNDREDS_THREE_TWO:
+CLR;
+LDA_MEM 224;
+ADD_A;
+ADD 100;
+MCA;
+STA 224;
+#decrement hundreds palce decimal value and branch if done
+CLR;
+LDA_MEM 222;
+ADD_A;
+SUB 1;
+MCA;
+STA 222;
+BRp COUNT_HUNDREDS_THREE_TWO;
+
+# convert 10s place to decimal and store at address 222
+TENS_PLACE_NUM_ONE_THREE_TWO:
+LDA_MEM 211;
+ADD_A;
+SUB 48;
+MCA;
+STA 222;
+#check if hundreds place is 0
+CLR;
+LDA_MEM 222;
+ADD_A;
+BRz ONES_PLACE_NUM_ONE_THREE_TWO;
+#Not 0, add hundreds and store at address 223
+COUNT_TENS_THREE_TWO:
+CLR;
+LDA_MEM 224;
+ADD_A;
+ADD 10;
+MCA;
+STA 224;
+#decrement hundreds palce decimal value and branch if done
+CLR;
+LDA_MEM 222;
+ADD_A;
+SUB 1;
+MCA;
+STA 222;
+BRp COUNT_TENS_THREE_TWO;
+
+# convert 1s place to decimal and store at address 222
+ONES_PLACE_NUM_ONE_THREE_TWO:
+LDA_MEM 212;
+ADD_A;
+SUB 48;
+MCA;
+STA 222;
+#check if hundreds place is 0
+CLR;
+LDA_MEM 222;
+ADD_A;
+BRz ADD_NUMS;
+#Not 0, add hundreds and store at address 223
+COUNT_ONES_THREE_TWO:
+CLR;
+LDA_MEM 224;
+ADD_A;
+ADD 1;
+MCA;
+STA 224;
+#decrement hundreds palce decimal value and branch if done
+CLR;
+LDA_MEM 222;
+ADD_A;
+SUB 1;
+MCA;
+STA 222;
+BRp COUNT_ONES_THREE_TWO;
+JMP ADD_NUMS;
+
+#2 digits
+TWO_DIGITS_TWO:
+CLR;
+
+# convert 10s place to decimal and store at address 222
+TENS_PLACE_NUM_ONE_TWO_TWO:
+LDA_MEM 210;
+ADD_A;
+SUB 48;
+MCA;
+STA 222;
+#check if hundreds place is 0
+CLR;
+LDA_MEM 222;
+ADD_A;
+BRz ONES_PLACE_NUM_ONE_TWO_TWO;
+#Not 0, add hundreds and store at address 223
+COUNT_TENS_TWO_TWO:
+CLR;
+LDA_MEM 224;
+ADD_A;
+ADD 10;
+MCA;
+STA 224;
+#decrement hundreds palce decimal value and branch if done
+CLR;
+LDA_MEM 222;
+ADD_A;
+SUB 1;
+MCA;
+STA 222;
+BRp COUNT_TENS_TWO_TWO;
+
+# convert 1s place to decimal and store at address 222
+ONES_PLACE_NUM_ONE_TWO_TWO:
+LDA_MEM 211;
+ADD_A;
+SUB 48;
+MCA;
+STA 222;
+#check if hundreds place is 0
+CLR;
+LDA_MEM 222;
+ADD_A;
+BRz ADD_NUMS;
+#Not 0, add hundreds and store at address 223
+COUNT_ONES_TWO_TWO:
+CLR;
+LDA_MEM 224;
+ADD_A;
+ADD 1;
+MCA;
+STA 224;
+#decrement hundreds palce decimal value and branch if done
+CLR;
+LDA_MEM 222;
+ADD_A;
+SUB 1;
+MCA;
+STA 222;
+BRp COUNT_ONES_TWO_TWO;
+JMP ADD_NUMS;
+
+#1 digit
+ONE_DIGIT_TWO:
+CLR;
+
+# convert 1s place to decimal and store at address 222
+ONES_PLACE_NUM_ONE_ONE_TWO:
+LDA_MEM 210;
+ADD_A;
+SUB 48;
+MCA;
+STA 222;
+# check if hundreds place is 0
+CLR;
+LDA_MEM 222;
+ADD_A;
+BRz ADD_NUMS;
+# Not 0, add hundreds and store at address 223
+COUNT_ONES_ONE_TWO:
+CLR;
+LDA_MEM 224;
+ADD_A;
+ADD 1;
+MCA;
+STA 224;
+#decrement hundreds palce decimal value and branch if done
+CLR;
+LDA_MEM 222;
+ADD_A;
+SUB 1;
+MCA;
+STA 222;
+BRp COUNT_ONES_ONE_TWO;
+
+#number 1 total is at address 223
+#number 2 total is at address 224
+#store addition of the two numbers at address 225
+ADD_NUMS:
+CLR;
+LDA_MEM 223;
+ADD_A;
+LDA_MEM 224;
+ADD_A;
+MCA;
+STA 225;
+
+#print num1+num2=
+#print number 1
+LDA 200;
+STA 150;
+JSR PRINT_STRING;
+#print + sign
+LDA 90;
+STA 150;
+JSR PRINT_STRING;
+#print number 2
+LDA 210;
+STA 150;
+JSR PRINT_STRING;
+#print = sign
+LDA 120;
+STA 150;
+JSR PRINT_STRING;
+
+#grab each digit of the answer number and print them
+#acc = value, x = 0, y = value, a = value
+CLR;
+LDA 0;
+MAX;
+LDA_MEM 225;
+MAY;
+ADD_A;
+
+#calculate hundreds place
+HUNDS:
+SUB 100;
+BRn STORE_HUNDS;
+INC_X;
+JMP HUNDS;
+STORE_HUNDS:
+MXA;
+STA 226;
+
+#reset acc to before negative, reset x
+ADD 100;
+LDA 0;
+MAX;
+
+#calculate tens place
+TENS:
+SUB 10;
+BRn STORE_TENS;
+INC_X;
+JMP TENS;
+STORE_TENS:
+MXA;
+STA 227;
+
+#reset acc to before negative, reset x
+ADD 10;
+LDA 0;
+MAX;
+
+#calculate ones place
+ONES:
+SUB 1;
+BRn STORE_ONES;
+INC_X;
+JMP ONES;
+STORE_ONES:
+MXA;
+STA 228;
+
+#reset acc to before negative, reset x
+ADD 1;
+LDA 0;
+MAX;
+
+#print hundreds place
+PRINT_HUNDS:
+CLR;
+LDA_MEM 226;
+ADD_A;
+BRz PRINT_TENS;
+ADD 48;
+MCA;
+OUT;
+
+PRINT_TENS_W_HUNDS:
+CLR;
+LDA_MEM 227;
+ADD_A;
+ADD 48;
+MCA;
+OUT;
+JMP PRINT_ONES
+
+PRINT_TENS:
+CLR;
+LDA_MEM 227;
+ADD_A;
+BRz PRINT_ONES;
+ADD 48;
+MCA;
+OUT;
+
+PRINT_ONES:
+CLR;
+LDA_MEM 228;
+ADD_A;
+ADD 48;
+MCA;
+OUT;
+
+#end of program
+END;
+
+#print string subroutine
+#prints all character until NULL character is reach (0x00)
+PRINT_STRING:
+LDA_MEM 150;
+MAX;
+#Loop through characters of string and print them out
+LOOP_CHARS:
+CLR;
+LDA_X;
+OUT;
+INC_X;
+SUB_A;
+BRn LOOP_CHARS;
+RET;
+
+#count digits
+COUNT_DIGS:
+LDA_MEM 220;
+MAX;
+LOOP_DIGS:
+CLR;
+LDA_X;
+SUB_A;
+BRz DONE;
+INC_X;
+INC_Y;
+JMP LOOP_DIGS;
+DONE:
+MYA;
+STA 221;
+RET;

@@ -1,0 +1,48 @@
+//Load X and Y registers with 30
+LDA 30;
+MAX;
+MAY;
+//Load H into the A reg and store at 30, inc x
+LDA 72;
+STA_X;
+INC_X;
+//Load e into the A reg and store at 31, inc x
+LDA 101;
+STA_X;
+INC_X;
+JMP TESTA;
+//Load l into the A reg and store at 32, inc x
+LDA 108;
+STA_X;
+INC_X;
+//Load l into the A reg and store at 33, inc x
+LDA 108;
+STA_X;
+INC_X;
+//Load o into the A reg and store at 34, inc x
+LDA 111;
+STA_X;
+INC_X;
+TESTA:
+//Reload 30 into the Y reg
+LDA 30;
+MAY;
+//Load the H into the A from address 30, print, inc y
+LDA_Y;
+OUT;
+INC_Y;
+//Load the e into the A from address 31, print, inc y
+LDA_Y;
+OUT;
+INC_Y;
+//Load the l into the A from address 32, print, inc y
+LDA_Y;
+OUT;
+INC_Y;
+//Load the l into the A from address 33, print, inc y
+LDA_Y;
+OUT;
+INC_Y;
+//Load the o into the A from address 34, print, inc y
+LDA_Y;
+OUT;

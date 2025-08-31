@@ -1,0 +1,72 @@
+//Print 57
+//Load 57 into ACC
+ADD 57;
+//Store 57 in RegY
+MCY;
+//Subtract 100 until negative to count hundreds place (in RegX)
+HUNDREDS:
+SUB 100;
+BRn STORE_HUNDS;
+INC_X;
+JMP HUNDREDS;
+//Store the hundreds place at address 30
+STORE_HUNDS:
+MXA;
+STA 30;
+//Reset ACC and RegX
+ADD 100;
+LDA 0;
+MAX;
+//Subtract 10 until negative to count tens place (in RegX)
+TENS:
+SUB 10;
+BRn STORE_TENS;
+INC_X;
+JMP TENS;
+//Store the tens place at address 31
+STORE_TENS:
+MXA;
+STA 31;
+//Reset ACC and RegX
+ADD 10;
+LDA 0;
+MAX;
+//Subract 1 until negative to count ones place (in RegX)
+ONES:
+SUB 1;
+BRn STORE_ONES;
+INC_X;
+JMP ONES;
+//Store the tens place at address 32
+STORE_ONES:
+MXA;
+STA 32;
+//Print number
+LDA_MEM 30;
+CLR;
+ADD_A;
+ADD 48;
+MCA;
+OUT;
+LDA_MEM 31;
+CLR;
+ADD_A;
+ADD 48;
+MCA;
+OUT;
+LDA_MEM 32;
+CLR;
+ADD_A;
+ADD 48;
+MCA;
+OUT;
+
+PRINT_NUM:
+LDA_MEM 10;
+MAX;
+LDA_X;
+OUT;
+INC_X;
+MXA;
+STA 10;
+RET;
